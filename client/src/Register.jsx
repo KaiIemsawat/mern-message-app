@@ -1,12 +1,18 @@
+import axios from "axios";
 import { useState } from "react";
 
 export default function Register() {
     const [username, setUsername] = useState("");
     const [password, setPasswprd] = useState("");
 
+    const registerHandler = async (ev) => {
+        ev.preventDefault();
+        await axios.post("/register", { username, password });
+    };
+
     return (
         <div className="bg-blue-50 h-screen flex items-center">
-            <form className="w-64 mx-auto mb-12">
+            <form className="w-64 mx-auto mb-12" onSubmit={registerHandler}>
                 <input
                     value={username}
                     onChange={(ev) => setUsername(ev.target.value)}
@@ -17,6 +23,7 @@ export default function Register() {
                 <input
                     value={password}
                     onChange={(ev) => setPasswprd(ev.target.value)}
+                    autoComplete="on"
                     type="password"
                     placeholder="password"
                     className="block w-full rounded-sm p-2 mb-2 border "
